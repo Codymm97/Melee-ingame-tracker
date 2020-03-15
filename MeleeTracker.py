@@ -12,12 +12,20 @@ screen and just make the found areas of the percentages visible to help
 the number detection from going crazy.
 """
 
-def scanAndMaskGo():
+def scanAndMask(frame, foundGo):
     #TODO: takes in a frame of the match. It will mask everything but the middle of the
     #screen.
-    pass
+    if foundGo == False:
+        if findGo():
+            foundGo = True
+        else:
+            foundGo = False
+            #mask for Go
+        player1, player2 = findPlayers(frame)
+        #mask players
+    return mask, foundGo
 
-def scanAndMaskplayers():
+def findPlayers():
     #TODO: takes in a frame and tries to find the places where the ingame percentages are
     #once found, 1 of 6 masks will be applied to every frame frame until the match is over.
     pass
@@ -42,6 +50,17 @@ def plotGameData():
     pass
 
 def main():
+    video = cv2.VideoCapture('temp.mp4')
+    foundGo = False
+    while True:
+        if video.grap():
+            flag, frame = video.retrieve()
+            if not flag:
+                continue
+            else:
+                newFrame, foundGo = scanAndMask(frame,foundGo)
+
+
     #mask()
     #while(!Go)
     #   go = findgo()
